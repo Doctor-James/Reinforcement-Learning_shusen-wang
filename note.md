@@ -204,6 +204,8 @@ V（s，theta）可以度量状态S和策略网络theta的好坏，给定状态s
 
 对于action是连续形式，则需要积分，但Qpi是一个神经网络非常复杂，不能直接积分得到解析解，所以需要使用蒙特卡洛算法近似（此处需要补概率论...）
 
+具体可见[蒙特卡洛近似 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/36033544)
+
 ![image-20221005204835348](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20221005204835348.png)
 
 1. 随机抽样一个a_hat，抽样是根据概率密度函数pi抽的
