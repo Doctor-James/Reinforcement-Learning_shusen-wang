@@ -206,6 +206,10 @@ V（s，theta）可以度量状态S和策略网络theta的好坏，给定状态s
 
 具体可见[蒙特卡洛近似 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/36033544)
 
+[蒙特卡洛近似的一些例子](https://blog.csdn.net/qq_38689352/article/details/119489072)
+
+[数学理论—— 蒙特卡洛近似](https://blog.csdn.net/Cyrus_May/article/details/123967769?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2~default~CTRLIST~Rate-1-123967769-blog-119489072.pc_relevant_multi_platform_whitelistv4&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2~default~CTRLIST~Rate-1-123967769-blog-119489072.pc_relevant_multi_platform_whitelistv4&utm_relevant_index=1)
+
 ![image-20221005204835348](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20221005204835348.png)
 
 1. 随机抽样一个a_hat，抽样是根据概率密度函数pi抽的
