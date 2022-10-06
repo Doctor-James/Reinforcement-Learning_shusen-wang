@@ -1,4 +1,6 @@
-# Reinforcement Learning  
+# Deep Reinforcement Learning  
+
+[深度强化学习基础](https://www.bilibili.com/video/BV1rv41167yx?p=5&vd_source=8a196b748d509b7735169a013d4b46d8)
 
 ## Terminologies  
 
@@ -243,3 +245,37 @@ V（s，theta）可以度量状态S和策略网络theta的好坏，给定状态s
 
 用神经网络近似qt，下节课具体讲解
 
+
+
+## Actor-Critic Methods  
+
+![image-20221006161622328](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20221006161622328.png)
+
+之前学习的Policy network，策略网络，使用 net去近似policy函数pi，他控制agent的运动action，被称为actor
+
+Value network不直接控制agent，而是对动作打分，被成为critic
+
+![image-20221006162228152](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20221006162228152.png)
+
+![image-20221006162251382](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20221006162251382.png)
+
+更新两个network的目标是不同的
+
+1. 更新policy network的目标是增大V的值（因为V是对未来return的期望）
+2. 更新value network的目标是使得q的打分更准
+
+![image-20221006162454234](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20221006162454234.png)
+
+![image-20221006163000822](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20221006163000822.png)
+
+### Summary
+
+![image-20221006163930669](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20221006163930669.png)
+
+## AlphaGO
+
+![image-20221006164734902](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20221006164734902.png)
+
+![image-20221006164742895](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20221006164742895.png)
+
+**Imitation learning**,模仿学习  
