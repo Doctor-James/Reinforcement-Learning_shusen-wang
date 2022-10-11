@@ -279,3 +279,131 @@ Value network不直接控制agent，而是对动作打分，被成为critic
 ![image-20221006164742895](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20221006164742895.png)
 
 **Imitation learning**,模仿学习  
+
+
+
+## TD Learning
+
+先总结一下Sarsa和Q learing
+
+Q learing需要用到st at rt st+1
+
+Sarsa需要用到st at rt st+1 at+1
+
+个人认为Q learning更加贪婪，他每次都直接选择最大的Qpi（更容易陷入局部最优？）
+
+从代码上看，Q learing是选择了t时间动作之后，更新table后，再选择下一步动作
+
+```python
+while True:
+            # fresh env
+            env.render()
+
+            # RL choose action based on observation
+            action = RL.choose_action(str(observation))
+
+            # RL take action and get next observation and reward
+            observation_, reward, done = env.step(action)
+
+            # RL learn from this transition
+            RL.learn(str(observation), action, reward, str(observation_))
+
+            # swap observation
+            observation = observation_
+
+            # break while loop when end of this episode
+            if done:
+                break
+```
+
+
+
+而Sarsa是在更新table前就选好了at和at+1
+
+```python
+        while True:
+            # fresh env
+            env.render()
+
+            # RL take action and get next observation and reward
+            observation_, reward, done = env.step(action)
+
+            # RL choose action based on next observation
+            action_ = RL.choose_action(str(observation_))
+
+            # RL learn from this transition (s, a, r, s, a) ==> Sarsa
+            RL.learn(str(observation), action, reward, str(observation_), action_)
+
+            # swap observation and action
+            observation = observation_
+            action = action_
+
+            # break while loop when end of this episode
+            if done:
+                break
+```
+
+第一点区别在于，Q-learning在s2的时候无论如何都选最大的action的Q值作为反馈，但是Sarsa就会不会改变主意选最大的，而是就选了自己随便选的那个step走走看再更新。
+
+第二点区别在于：区别就在a'那里，Q-learning预选一个a'但是下一回合并不一定执行a'（因为下一回合Q表就更新了）。可是Sarsa下一回合却一定会执行a'
+
+### Sarsa
+
+TD Target
+
+![image-20221011200736424](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20221011200736424.png)
+
+E（Ut+1） = Qpi，又E（E（）） = E（）
+
+所以可以写作：
+
+![image-20221011202349349](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20221011202349349.png)
+
+右侧的期望做蒙特卡洛近似为yt（TD target）
+
+![image-20221011202437452](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20221011202437452.png)
+
+TD learing的目的就是让动作价值函数Qpi去接近yt，这是因为Qpi完全是估计，而yt一部分基于真实reward，所以认为yt更可信
+
+
+
+
+
+具体算法
+
+**表格形式**，通常用在S和A较少的情况下，表格中的值即为Qpi，需要更新（随机初始化，可中途加入新的State）
+
+![image-20221011202719608](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20221011202719608.png)
+
+算法流程
+
+![image-20221011202924773](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20221011202924773.png)
+
+其中Qpi是通过查表得到的
+
+**神经网络形式**
+
+![image-20221011203211039](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20221011203211039.png)
+
+q为神经网络，被称为Value network
+
+### Q learning
+
+Sarsa对应Qpi，而Q learning 对应Q_star(最优动作价值函数)
+
+同理可以写出他的TD Target
+
+![image-20221011204125898](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20221011204125898.png)
+
+又根据下述等式
+
+![image-20221011204314986](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20221011204314986.png)
+
+即At+1是最优动作，他可以最优化Q_star函数
+
+**表格形式**，与Sarsa不同的是，这里取一行中最大值对应的a
+
+![image-20221011204452411](C:\Users\HASEE\AppData\Roaming\Typora\typora-user-images\image-20221011204452411.png)
+
+
+
